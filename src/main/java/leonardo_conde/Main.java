@@ -94,18 +94,22 @@ public class Main {
             FaturamentoDia menorFaturamento = faturamentoDiario.get(0);
             FaturamentoDia maiorFaturamento = faturamentoDiario.get(0);
             double soma = menorFaturamento.getValor();
+            int countValidDays = 0;
 
             for(int i = 1; i < faturamentoDiario.size() - 2; i++) {
                 FaturamentoDia faturamento = faturamentoDiario.get(i);
-                soma += faturamento.getValor();
-                if(faturamento.getValor() > maiorFaturamento.getValor()) {
-                    maiorFaturamento = faturamento;
-                } else if(faturamento.getValor() < menorFaturamento.getValor()) {
-                    menorFaturamento = faturamento;
+                if(faturamento.getValor() > 0) {
+                    countValidDays += 1;
+                    soma += faturamento.getValor();
+                    if(faturamento.getValor() > maiorFaturamento.getValor()) {
+                        maiorFaturamento = faturamento;
+                    } else if(faturamento.getValor() < menorFaturamento.getValor()) {
+                        menorFaturamento = faturamento;
+                    }
                 }
             }
 
-            double media = soma / faturamentoDiario.size();
+            double media = soma / countValidDays;
 
             System.out.printf("Resposta 3: O menor faturamento foi no dia %d e o maior foi no dia %d. Os dias com faturamento acima da média foram:\n",
                 menorFaturamento.getDia(),
